@@ -3,34 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// script para la situacion 1
+/// </summary>
 public class Situacion1 : SituacionTemplate
 {
+    /*
+    *     VARIABLES
+    * */
+
+    //PUBLICAS
     public GameObject canvasDniCorrecto;
     public GameObject canvasDniInCorrecto;
-
     public TextMeshProUGUI textoDniIncorrecto;
     public TextMeshProUGUI textoDniCorrecto;
 
+    //PRIVADAS
     private string dni = "";
-
     const string textoIncorrecto = "El DNI: {DNI} es incorrecto";
     const string textoCorrecto = "Bienvenido usuario con el DNI: {DNI}";
 
-
-    public override void iniciarSituacion()
+    /*
+    *      FUNCIONES ABSTRACTAS
+    * */
+    public override void iniciarSituacion(){}
+    public override void cortarSituacion()
     {
+        situacionManager.logTerminarSituacion();
         return;
     }
 
+
+    /*
+    *      FUNCIONES PUBLICAS
+    * */   
     public void setDni(string dni)
     {       
         this.dni = dni;
-    }
+    }    
 
     public void buttonAceptar()    {
         
+        //comprobamos si el DNI es valido
         //Miramos el length del string
-        if (this.dni.Length != 9)
+        if (dni.Length != 9)
         {
             dniInvalido();
             return;
@@ -40,14 +56,14 @@ public class Situacion1 : SituacionTemplate
         string dniNumeros = dni.Substring(0, dni.Length - 1);
         string dniLetra = dni.Substring(dni.Length - 1, 1);
 
-        //Comprobamos si la letra introducida es valida
+        //Comprobamos si la letra introducida es valida (solo permitimos mayusculas)
         if(dniLetra[0] < 'A' || dniLetra[0] > 'Z')
         {
             dniInvalido();
             return;
         }
 
-        //comrobamos si se ha introducido un numero valido
+        //comrobamos si algun numero es un caracter
         foreach (char caracter in dniNumeros)
         {
             if (!char.IsDigit(caracter))
@@ -59,7 +75,7 @@ public class Situacion1 : SituacionTemplate
 
         //si llega aqui el DNI es correcto
         dniValido();       
-    }
+    }  
 
     public void cerrarVentanaDniInvalido()
     {
@@ -69,10 +85,14 @@ public class Situacion1 : SituacionTemplate
     public void cerrarVentanaDniValido()
     {
         canvasDniCorrecto.SetActive(false);
+        cortarSituacion();
         situacionManager.siguienteSituacion();
     }
 
 
+    /*
+    *      FUNCIONES PRIVADAS
+    * */
     private void dniInvalido()
     {        
         textoDniIncorrecto.text = textoIncorrecto.Replace("{DNI}", this.dni);
