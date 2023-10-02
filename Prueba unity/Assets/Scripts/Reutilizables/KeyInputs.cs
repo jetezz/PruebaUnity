@@ -14,6 +14,7 @@ public class KeyInputs : MonoBehaviour
 
     //PRIVADAS
     private bool isKeyPressed = false;
+    private bool teclasActivadas = true;
 
 
     /*
@@ -22,7 +23,7 @@ public class KeyInputs : MonoBehaviour
     public Enums.Situaciones comprobarTeclas()
     {
 
-        if (!isKeyPressed)
+        if (!isKeyPressed && teclasActivadas)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))            {
                        
@@ -77,5 +78,15 @@ public class KeyInputs : MonoBehaviour
         return Enums.Situaciones.SinSituacion;
 
 
+    }
+
+    public void desactivarTeclas()
+    {
+        teclasActivadas = false;
+    }
+
+    public void activarTeclas()
+    {
+        teclasActivadas = true;
     }
 }

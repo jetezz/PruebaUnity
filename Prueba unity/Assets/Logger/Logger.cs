@@ -17,10 +17,10 @@ public class Logger : MonoBehaviour
     public const string title = "Inicio de prueba";
 
     //PRIVADAS
-    private string logFilePath;     
+    private string logFilePath = "";     
 
-    void Start()
-    {
+    void Start()    {
+       
         logFilePath = Path.Combine(Application.dataPath, logPath, logFileName);       
 
         //Reseteamos el fichero 
@@ -38,11 +38,14 @@ public class Logger : MonoBehaviour
     * */
 
     public void WriteToLog(string message, string situacion = "Sin situacion")
-    {
-        using (StreamWriter writer = new StreamWriter(logFilePath, true))
+    {      
+        if (logFilePath != "")
         {
-            //escribimos en el fichero una nueva linea con el formato MARCADETIEMPO;SITUACION;ESTADO
-            writer.WriteLine(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ";" + situacion + ";" + message);
+            using (StreamWriter writer = new StreamWriter(logFilePath, true))
+            {
+                //escribimos en el fichero una nueva linea con el formato MARCADETIEMPO;SITUACION;ESTADO
+                writer.WriteLine(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ";" + situacion + ";" + message);
+            }
         }
     }
 }

@@ -12,14 +12,15 @@ public class SituacionManager : MonoBehaviour
     * */
     //PUBLICAS
     public GameObject[] todasSituaciones;
-    public int situacionActual = 0;
+    public int situacionActual = 1;
 
     //PRIVADAS   
     private int numSituaciones ;
     private SituacionTemplate situacionTemplate;
     static protected Logger logger;
     static protected KeyInputs keyInputs;  
-   
+    private AnimacionManager animacionManager;
+
 
     void Start()
     {       
@@ -29,6 +30,7 @@ public class SituacionManager : MonoBehaviour
             keyInputs = GetComponent<KeyInputs>();
             logger = GetComponent<Logger>();
             numSituaciones = todasSituaciones.Length - 1;
+            animacionManager = FindObjectOfType<AnimacionManager>();
 
             //lanzamos su funcion abstracta de inicializar
             iniciarSituacion(situacionActual);   
@@ -45,7 +47,8 @@ public class SituacionManager : MonoBehaviour
             logger.WriteToLog(((Enums.Situaciones)situacion).ToString(), "FORZAR");
             terminarSituacion();
             situacionActual = (int)situacion;
-            iniciarSituacion((int)situacion);
+            animacionManager.animacionCortarSituacion((int)situacion);
+            //iniciarSituacion((int)situacion);
         }
     }
 
@@ -62,13 +65,15 @@ public class SituacionManager : MonoBehaviour
         if (situacionActual > numSituaciones)
         {
             situacionActual = 0;
-        }
-
-        iniciarSituacion(situacionActual);
+        }       
+        animacionManager.animacionSituacionFinalizada(situacionActual);
+       
+        //iniciarSituacion(situacionActual);
 
     }
     public void iniciarSituacion(int situacion)
     {
+
         //lanzamos su funcion abstracta de inicializar
         situacionTemplate = todasSituaciones[situacion].GetComponent<SituacionTemplate>();
 

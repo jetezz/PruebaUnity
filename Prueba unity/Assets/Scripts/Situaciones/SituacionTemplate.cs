@@ -15,12 +15,14 @@ public abstract class SituacionTemplate : MonoBehaviour
     //PRIVADAS
     static protected SituacionManager situacionManager;
     static protected Logger logger;
+    static protected KeyInputs keyInputs;
 
 
     protected void Start()
-    {      
+    {       
         situacionManager = FindObjectOfType<SituacionManager>();
         logger = GetComponent<Logger>();
+        keyInputs = FindObjectOfType<KeyInputs>();
     }
 
     /*

@@ -23,12 +23,31 @@ public class Situacion1 : SituacionTemplate
     const string textoIncorrecto = "El DNI: {DNI} es incorrecto";
     const string textoCorrecto = "Bienvenido usuario con el DNI: {DNI}";
 
+
+    new void Start()
+    {
+        //llamamos al start del padre para coger los valores iniciales para todos las situaciones
+        base.Start();
+        if (keyInputs)
+        {
+            keyInputs.desactivarTeclas();
+        }
+    }
+
+
     /*
     *      FUNCIONES ABSTRACTAS
     * */
-    public override void iniciarSituacion(){}
+    public override void iniciarSituacion()
+    {       
+        if (keyInputs)
+        {
+            keyInputs.desactivarTeclas();
+        }
+    }
     public override void cortarSituacion()
     {
+        keyInputs.activarTeclas();
         situacionManager.logTerminarSituacion();
         return;
     }
