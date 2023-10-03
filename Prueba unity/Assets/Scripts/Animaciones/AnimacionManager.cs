@@ -64,12 +64,12 @@ public class AnimacionManager : MonoBehaviour
         yield return new WaitForSeconds(1);       
         animatorIzquierda.SetBool("Cerrar", false);
         animatorDerecha.SetBool("Cerrar", false);
-        cartel.SetActive(false);
-        situacionManager.iniciarSituacion(situacion);
+        cartel.SetActive(false);        
         if (keyInputs)
         {
             keyInputs.activarTeclas();
         }
+        situacionManager.iniciarSituacion(situacion);
     }
 
     private void cerrarPuerta()    

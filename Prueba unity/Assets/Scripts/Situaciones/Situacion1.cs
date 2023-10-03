@@ -41,7 +41,7 @@ public class Situacion1 : SituacionTemplate
     public override void iniciarSituacion()
     {       
         if (keyInputs)
-        {
+        {         
             keyInputs.desactivarTeclas();
         }
     }

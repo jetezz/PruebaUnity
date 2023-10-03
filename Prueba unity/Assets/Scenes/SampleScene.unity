@@ -817,7 +817,7 @@ MonoBehaviour:
   - {fileID: 1085895578}
   - {fileID: 520664814}
   - {fileID: 2140573148}
-  situacionActual: 1
+  situacionActual: 0
 --- !u!4 &357227661
 Transform:
   m_ObjectHideFlags: 0
